@@ -1,9 +1,5 @@
 # Gate 4 — đọc và xem xét ba bảng audit
 
-Retrieval đã chạy trên bộ câu hỏi đã khóa. C được chọn trên dev trước test. Sau đó học viên yêu cầu “vậy bạn chấm giúp mình”: Codex đã đọc và chấm đủ ba bảng, ghi rõ `label_origin=ai_assisted`, `reviewer=Codex`, `human_verified=false`. Đây không phải nhãn thủ công độc lập và chưa được học viên xác minh. Đọc bản dễ xem tại [AUDIT_REVIEW.md](AUDIT_REVIEW.md); phương pháp và hạn chế ở [audit_method.json](audit_method.json). Bảng trống ban đầu được giữ trong `audit_before_ai/`.
-
-Rubric bên dưới dùng cho điểm AI hiện tại và để học viên xem xét lại. AI chấm sau khi biết điểm retrieval, cùng assistant đã viết pipeline; vì vậy có nguy cơ thiên lệch. Metadata có hỗ trợ kiểm tra lại text layer 22 trang nguồn, không phải kiểm tra bố cục PDF bằng mắt.
-
 ## 1. Coherence — audit_coherence.csv (30 dòng)
 
 Mỗi cấu hình A/B/C có cùng 10 vị trí nguồn được chọn trước retrieval. Đọc `text`, đối chiếu vị trí nguồn rồi điền:
