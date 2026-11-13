@@ -1,0 +1,37 @@
+{
+  "status": "locked_before_retrieval",
+  "corpus_manifest": "data/manifest.json",
+  "model": "openai/text-embedding-3-small",
+  "dimensions": 1536,
+  "vector_store": "Chroma PersistentClient",
+  "metric": "cosine",
+  "top_k": 3,
+  "tokenizer": "cl100k_base",
+  "configs": {
+    "A": {
+      "type": "fixed_tokens",
+      "size": 512,
+      "overlap": 64
+    },
+    "B": {
+      "type": "article",
+      "split_long_articles": false
+    },
+    "C": {
+      "type": "article_then_clause",
+      "threshold": 512,
+      "preserve_article_heading": true
+    }
+  },
+  "filter_experiment": "B versus B+filter only on queries with explicit part restriction; base A/B/C are unfiltered",
+  "split_rule": "15 dev questions from part 1 and part 2; 5 test questions from part 3. Different articles/topics are held out where feasible. These are continuation files of one law, so cross-references and shared terminology remain a leakage risk.",
+  "selection_rule": [
+    "maximize dev Evidence Hit@3",
+    "then dev Hit@1",
+    "then fewer document embedding tokens",
+    "then lexical config name for deterministic ties"
+  ],
+  "test_policy": "Test retrieval runs only after dev selection is saved and configuration is frozen. Gold review at Gate 2 is permitted; no retrieval results exist yet. Do not tune on test.",
+  "gold_policy": "Human verifies answers/conditions and evidence before approval. Whitespace-normalized matching is a check, not an independent semantic judge. Accept documented alternative source/page locations.",
+  "manual_audit": "Human labels coherence on 10 preselected source positions and metadata/grounding on the same 5 test questions for each config. No AI-generated audit labels."
+}

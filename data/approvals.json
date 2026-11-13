@@ -1,0 +1,19 @@
+{
+  "human_gate_1": {
+    "status": "approved",
+    "confirmed_by": "Đàm Tuấn Linh",
+    "confirmed_on": "2026-11-13",
+    "scope": "Use the three supplied Land Law PDFs from the official government source and the 253-page selection recorded in manifest.json.",
+    "evidence": "User message: oke mình confirm corpus rồi thực hiện tiếp nhiệm vụ được giao đi",
+    "full_page_by_page_manual_quality_review": "not claimed"
+  },
+  "human_gate_2": {
+    "status": "approved",
+    "confirmed_by": "Đàm Tuấn Linh",
+    "confirmed_on": "2026-11-13",
+    "evidence": "User reply to benchmark review: oki tiếp tục thôi",
+    "scope": "Approve the 20-question draft, gold evidence, split and explicit part filters for locking before retrieval. This does not supply manual retrieval-audit labels."
+  },
+  "human_gate_3": {"status": "pending"},
+  "human_gate_4": {"status": "pending"}
+}

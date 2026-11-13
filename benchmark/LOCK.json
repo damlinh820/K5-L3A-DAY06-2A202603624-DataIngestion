@@ -1,0 +1,33 @@
+{
+  "status": "locked_before_retrieval",
+  "approved_on": "2026-11-13",
+  "questions_sha256": "fa49a88cd96ad388b778e1cc91f77ac928be0b05e211cdfa8f58fd85dd367f8c",
+  "protocol_sha256": "105241b7468efd6d43da9cf68460e38aedccaacce8ddef3370fd0f95a8522132",
+  "pages_sha256": "a2eed46527c9e22678efde4f3068db3c8dcb6d9cc7d8db87c69ad06dc6f3a92d",
+  "manifest_sha256": "f36c3b647256396541f76113c00d45c0f29ea86e9f9258bff59f82b6097633ba",
+  "dev_ids": [
+    "q01",
+    "q02",
+    "q03",
+    "q04",
+    "q05",
+    "q06",
+    "q07",
+    "q08",
+    "q09",
+    "q10",
+    "q11",
+    "q12",
+    "q13",
+    "q14",
+    "q15"
+  ],
+  "test_ids": [
+    "q16",
+    "q17",
+    "q18",
+    "q19",
+    "q20"
+  ],
+  "retrieval_run_before_lock": false
+}
