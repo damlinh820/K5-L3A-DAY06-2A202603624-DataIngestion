@@ -2,7 +2,7 @@
 
 ## Trạng thái bài làm Luật Đất đai
 
-Trước khi đưa lên Git, xem [checkpoint đã/chưa hoàn thành](CHECKPOINTS.md) và mục “Ghi chú cho học viên trước khi đưa lên Git” ở đầu [báo cáo cá nhân](report/individual/2A202603624_DamTuanLinh.md). Gate 1–3 đã xác nhận; còn xem xét nhãn AI ở Gate 4, chốt commit, push và nộp link.
+Xem [checkpoint](CHECKPOINTS.md) và mục “Ghi chú xác nhận và trạng thái nộp bài” ở đầu [báo cáo cá nhân](report/individual/2A202603624_DamTuanLinh.md). Snapshot mã/kết quả đã commit và push: [f3a1470](https://github.com/damlinh820/K5-L3A-DAY06-2A202603624-DataIngestion/commit/f3a1470c357e144a97248ae7a9023a3113562faf). Gate 1–3 đã xác nhận; audit là nhãn AI, chưa ghi nhận cụ thể các dòng học viên xác minh. Việc nộp link qua kênh lớp do học viên tự xác nhận.
 
 Corpus hiện tại là ba PDF `data/luatdat1.pdf` đến `data/luatdat3.pdf`; [manifest](data/manifest.json) ghi nguồn Chính phủ và 253 trang có văn bản. Học viên đã xác nhận corpus ở Gate 1. Dùng môi trường `.venv-legal`, OpenRouter `openai/text-embedding-3-small` (1536 chiều), Chroma persistent cosine. Các bước cũ trong `starter/` là implementation trước đây cho corpus Đà Lạt, chưa phải pipeline chunk pháp lý A/B/C mới.
 

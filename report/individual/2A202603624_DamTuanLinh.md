@@ -9,11 +9,11 @@
 - Lớp: L3A
 - Chủ đề và corpus: Truy xuất bằng chứng từ Luật Đất đai số 31/2024/QH15, gồm ba PDF tiếp nối của cùng một văn bản.
 - Repo bài nộp: https://github.com/damlinh820/K5-L3A-DAY06-2A202603624-DataIngestion
-- Commit chốt bài: **Chưa chốt**.
+- Commit chốt bài (snapshot mã và kết quả): [f3a1470c357e144a97248ae7a9023a3113562faf](https://github.com/damlinh820/K5-L3A-DAY06-2A202603624-DataIngestion/commit/f3a1470c357e144a97248ae7a9023a3113562faf). Phần cập nhật mã commit/trạng thái trong hồ sơ được commit sau snapshot, không đổi mã hoặc kết quả thực nghiệm.
 
-## Ghi chú cho học viên trước khi đưa lên Git
+## Ghi chú xác nhận và trạng thái nộp bài
 
-Phần kỹ thuật và bản báo cáo đã có kết quả. **Chưa chốt commit/push; chưa ghi nhận học viên xem xét nhãn AI.** Yêu cầu AI chấm hộ không phải bằng chứng học viên đã đọc và xác minh từng nhãn.
+Phần kỹ thuật, báo cáo và snapshot kết quả đã được commit/push lên `origin/main` tại commit nêu trên. **Nhãn audit vẫn được công khai là AI hỗ trợ, chưa có ghi nhận cụ thể các dòng học viên xác minh.** Yêu cầu AI chấm hộ không tự đổi nhãn thành nhãn thủ công độc lập.
 
 | Trạng thái | Nội dung | Đọc/kiểm tra ở đâu |
 |---|---|---|
@@ -21,8 +21,8 @@ Phần kỹ thuật và bản báo cáo đã có kết quả. **Chưa chốt com
 | Đã xác nhận — Gate 2 | Bộ 20 câu/gold và split 15 dev/5 test trước retrieval | Mục “Bộ câu hỏi và gold”; `benchmark/REVIEW.md`, commit `65922c5` |
 | Đã xác nhận — Gate 3 | Mẫu chunk A/B/C trước retrieval | Mục “Thiết kế theo AGENT_PLAN”; `results/CHUNK_REVIEW.md` và hồ sơ duyệt |
 | Cần học viên xem xét — Gate 4 | Đọc điểm/lý do audit AI, đối chiếu mẫu và nguồn; báo các dòng đồng ý hoặc cần sửa | Mục “Kết quả” và “Phân tích và kết luận”; [AUDIT_REVIEW.md](../../results/AUDIT_REVIEW.md), ba CSV audit và [AUDIT_GUIDE.md](../../results/AUDIT_GUIDE.md) |
-| Chưa làm — chốt Git | Tạo commit chứa bài làm, điền mã commit vào báo cáo và STUDENT.md; push và kiểm tra repo từ xa | Trường “Commit chốt bài” phía trên; [STUDENT.md](../../STUDENT.md). Lệnh `git add` trước đó chưa được cấp quyền, thay đổi vẫn ở máy |
-| Học viên tự thực hiện — nộp bài | Kiểm tra người chấm truy cập được repo; nộp link theo kênh và thời hạn lớp | Hướng dẫn [SUBMISSION.md](../../SUBMISSION.md) |
+| Đã thực hiện — chốt Git | Snapshot mã/kết quả đã commit và push lên `origin/main`; ghi mã vào báo cáo/STUDENT.md trong commit cập nhật hồ sơ | Trường “Commit chốt bài” phía trên; [STUDENT.md](../../STUDENT.md) |
+| Học viên tự xác nhận — nộp bài | Học viên đã đánh dấu mục quyền truy cập/nộp link trong checklist; agent không trực tiếp xác minh kênh nộp | Hướng dẫn [SUBMISSION.md](../../SUBMISSION.md); push Git không đồng nghĩa xác nhận nộp qua kênh lớp |
 
 **Phần cần xem kỹ ở Gate 4:** coherence 30 dòng, metadata 45 dòng và grounding 15 dòng. Ví dụ dễ nhầm: B/q17 (nhận chuyển quyền khác giao/công nhận đất), A/q18 (mất tiền đề do cắt chunk), B/q19 (danh sách giấy ở phần 2 nhưng yêu cầu phần 3). C/q19 đủ bằng chứng ở rank 3 nhưng không đạt yêu cầu cả top-3 nằm trong phần 3. Metadata đúng nguồn/trang không đồng nghĩa retrieval đúng phạm vi.
 
@@ -109,7 +109,7 @@ Chunk giữ `document_id`, `source`, `part`, `page`, `page_end`, `n_tokens` và 
 | 1:50 — chuẩn hóa và chunk | Đã hoàn thành, Gate 3 đã xác nhận | Đủ 260 Điều; A/B/C: 586/307/1.137 chunk; kiểm tra chunk/provenance đạt |
 | 2:40 — vector và ba chiến lược | Đã hoàn thành | Embed thật, lưu đủ ba index; nạp không nhân đôi, process riêng đọc lại đạt |
 | 3:30 — benchmark và audit | Retrieval/audit AI đã xong; xác minh của học viên còn mở | Có trace dev/test và 30/45/15 nhãn AI; chưa đánh dấu học viên đã xem xét nhãn |
-| 4:00 — báo cáo và nộp | Báo cáo/rà kỹ thuật đã xong; chốt Git/nộp còn mở | 13 tests và kiểm tra gold/index/trace/file đã đạt; chưa commit cuối, push hay xác nhận nộp bài |
+| 4:00 — báo cáo và nộp | Báo cáo/rà kỹ thuật và chốt Git đã xong; nộp link do học viên tự xác nhận | 13 tests, kiểm tra gold/index/trace/file đạt; snapshot đã push; agent không trực tiếp xác minh kênh nộp lớp |
 
 Các mốc là checkpoint của bài, không phải ghi nhận thời gian thực tế đã hoàn thành. Thời gian ingest đo được nằm trong bảng kết quả; không bao gồm thời gian cài đặt/trích xuất/chia chunk ban đầu.
 
@@ -219,7 +219,7 @@ Mỗi dòng có `label_origin=ai_assisted`, `reviewer=Codex`, `human_verified=fa
 Các trường hợp khác nằm trong [failure_cases.md](../../results/failure_cases.md). Nếu mở rộng sau bài này, có thể thử kết hợp từ khóa hoặc nhận diện Điều/Khoản do người dùng nêu trên một vòng thí nghiệm mới, chọn tham số bằng dev và dành một tập test mới; chưa thực hiện các cải tiến đó trong kết quả hiện tại.
 - **Giới hạn:** corpus chỉ gồm một luật trong ba file tiếp nối, chưa kiểm tra chất lượng toàn bộ 253 trang thủ công; có thể có lỗi khoảng trắng và ranh giới qua trang/file. Benchmark 5 câu test có độ đại diện hạn chế. Nhãn audit do cùng AI viết pipeline chấm sau khi biết điểm, chưa được học viên xác minh; không xem là bằng chứng đánh giá độc lập. Không suy rộng thành phương pháp tốt nhất cho mọi corpus hoặc tư vấn pháp lý hiện hành.
 - **AI và cách kiểm tra:** dùng Codex để đọc hướng dẫn, viết script, trích xuất PDF, kiểm tra nguồn, gọi embedding, chạy retrieval, chấm audit theo yêu cầu mới và soạn báo cáo. Số liệu lấy từ manifest/log/response API/trace; không dùng mock vector. Gold và chunk được học viên xác nhận ở Gate 2–3; audit ghi rõ nhãn AI và lý do từng dòng, kiểm tra lại text layer 22 trang nguồn và bảo toàn hash benchmark/index. Chưa tuyên bố học viên xác minh nhãn AI.
-- **Việc tiếp theo:** học viên xem lại nhãn AI, nhất là các điểm grounding một phần và filter; rà checklist và chốt commit cuối trước khi nộp. Nếu sửa nhãn, ghi rõ người sửa và phương pháp thay vì đổi nhãn AI thành nhãn người một cách ngầm định.
+- **Việc học viên cần lưu ý:** snapshot mã/kết quả đã commit và push. Xem lại nhãn AI, nhất là grounding một phần và filter; xác nhận nộp link theo kênh lớp. Nếu sửa nhãn, ghi rõ người sửa và phương pháp thay vì ngầm đổi nhãn AI thành nhãn người.
 
 ### Kiểm tra trước khi đưa lên repo
 

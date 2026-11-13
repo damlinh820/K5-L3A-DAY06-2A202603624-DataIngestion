@@ -2,7 +2,7 @@
 
 Đối chiếu README, GUIDE, BENCHMARK, RULES, RUBRIC và SUBMISSION ngày 13/11/2026. Đây là kiểm tra minh chứng, không phải điểm do giảng viên chấm.
 
-Trạng thái tick từng Phase/Gate ở [CHECKPOINTS.md](../CHECKPOINTS.md). Các mục cần học viên xác minh đã được đặt ngay đầu [báo cáo](../report/individual/2A202603624_DamTuanLinh.md), trong phần “Ghi chú cho học viên trước khi đưa lên Git”. Gate 1–3 đã xác nhận; Gate 4 còn xem xét nhãn AI; commit cuối, push và nộp link chưa hoàn thành.
+Trạng thái tick từng Phase/Gate ở [CHECKPOINTS.md](../CHECKPOINTS.md). Các mục cần học viên xác minh ở đầu [báo cáo](../report/individual/2A202603624_DamTuanLinh.md), phần “Ghi chú xác nhận và trạng thái nộp bài”. Gate 1–3 đã xác nhận; snapshot mã/kết quả `f3a1470` đã commit/push. Nhãn audit vẫn là AI, chưa có xác minh chi tiết của học viên; học viên tự đánh dấu mục nộp link, agent không trực tiếp xác minh kênh lớp.
 
 | Yêu cầu | Minh chứng và trạng thái |
 |---|---|

@@ -39,7 +39,7 @@ Cập nhật 13/11/2026 theo kết quả và xác nhận đã có. `[x]` chỉ c
 - [x] Công khai phương pháp/thiên lệch/chưa xác minh; kiểm tra text layer 22 trang nguồn.
 - [x] Gate 4 — hoàn thành bảng chấm bằng AI theo yêu cầu bổ sung của học viên. Nguồn nhãn vẫn là AI; chưa ghi nhận cụ thể các dòng đã được học viên xác minh, không coi là chấm thủ công độc lập.
 
-Đọc results/AUDIT_REVIEW.md và mục “Ghi chú cho học viên trước khi đưa lên Git” trong báo cáo. Chú ý B/q17, A/q18, B/q19 và lỗi phạm vi q19; không nhầm metadata đúng nguồn với bằng chứng đủ hoặc đúng phạm vi.
+Đọc results/AUDIT_REVIEW.md và mục “Ghi chú xác nhận và trạng thái nộp bài” trong báo cáo. Chú ý B/q17, A/q18, B/q19 và lỗi phạm vi q19; không nhầm metadata đúng nguồn với bằng chứng đủ hoặc đúng phạm vi.
 
 ## Phase 5 — Báo cáo và nộp
 
@@ -48,8 +48,8 @@ Cập nhật 13/11/2026 theo kết quả và xác nhận đã có. `[x]` chỉ c
 - [x] README có setup/kiểm tra/nguồn PDF; phân biệt pipeline luật với starter Đà Lạt cũ.
 - [x] 13 tests đạt; kiểm tra gold/index/trace và audit hợp lệ.
 - [x] Rà file chuẩn bị đưa lên Git, không có .env/key/PDF/venv/cache/index; có submission_check.json.
-- [ ] Chốt commit mã/kết quả cuối; điền mã vào STUDENT.md và báo cáo. Đang thực hiện theo yêu cầu chốt repo của học viên.
-- [ ] Push GitHub và kiểm tra commit/file từ xa; chỉ đánh dấu sau khi lệnh thành công.
+- [x] Chốt snapshot mã/kết quả `f3a1470c357e144a97248ae7a9023a3113562faf`; mã được ghi vào STUDENT.md và báo cáo trong commit cập nhật hồ sơ sau đó.
+- [x] Snapshot `f3a1470` đã push thành công lên `origin/main` của repo học viên. Commit cập nhật hồ sơ sau đó không thay mã/kết quả thực nghiệm.
 - [x] Học viên đã tự đánh dấu mục kiểm tra quyền truy cập/nộp link trong checklist. Agent không trực tiếp xác minh kênh nộp lớp; push không đồng nghĩa đã nộp bài.
 
 ## Những giới hạn không tự coi là việc kỹ thuật còn thiếu
