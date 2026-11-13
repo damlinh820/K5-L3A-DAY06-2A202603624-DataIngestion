@@ -10,4 +10,5 @@ results/test_run.json text eol=lf
 # Preserve byte hashes of the original PDF extraction and scored/blank CSV sheets.
 results/pages.jsonl -text
 results/audit*.csv -text
+results/audit_before_ai/*.csv -text
 data/manifest.json -text
