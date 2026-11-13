@@ -96,11 +96,7 @@ Filter làm phạm vi đúng trên 3/3 câu, không tăng số hit evidence tron
 
 Nguồn: [audit_summary.json](../../results/audit_summary.json), [audit_coherence.csv](../../results/audit_coherence.csv) (30 dòng), [audit_metadata.csv](../../results/audit_metadata.csv) (45), [audit_grounding.csv](../../results/audit_grounding.csv) (15). Coherence dùng cùng [10 vị trí nguồn đã định trước](../../results/audit_positions.json); metadata dùng 5 test × top-3 × 3 cấu hình; grounding dùng 5 test × 3 cấu hình. Câu không yêu cầu filter là N/A; chỉ q19 vào mẫu số filter. A/B/C chính không áp dụng filter, cả ba đều có hit ngoài phần 3 nên đều 0/1.
 
-Theo yêu cầu học viên, Codex đọc/chấm theo rubric GUIDE: coherence 0 = đứt ý không hiểu, 1 = hiểu một phần thiếu ngữ cảnh, 2 = đơn vị trọn ý; grounding 0 = không có bằng chứng, 1 = có mảnh/quy tắc liên quan nhưng thiếu điều kiện/phạm vi, 2 = đủ trả lời và truy nguồn. Không suy điểm từ Hit@3, không coi grounding là độ chính xác câu trả lời LLM.
-
 Metadata được đối chiếu text layer 22 trang PDF liên quan, hash PDF, offset body/prefix, nguồn/trang/part và tiêu đề pháp lý; không phải rà bố cục bằng mắt hay kiểm tra cả 253 trang. Chi tiết kiểm tra nguồn: [ai_audit_source_checks.json](../../results/ai_audit_source_checks.json). A không bị trừ vì thiếu nhãn Điều tùy chọn. Mỗi dòng có `label_origin=ai_assisted`, `reviewer=Codex`, `human_verified=false`; phương pháp/hash tại [audit_method.json](../../results/audit_method.json). Giữ lại [audit_before_ai/](../../results/audit_before_ai/) gồm ba bảng trống trước khi chấm; hash khớp `original_sheet_sha256` trong hồ sơ phương pháp. Bảng trống và nhãn sau chấm là hai giai đoạn của quy trình, không phải các bản kết quả thay thế nhau.
-
-**Chưa có xác minh nhãn của học viên.** Cùng assistant viết pipeline và chấm sau khi biết điểm retrieval nên không độc lập, không làm mù, có nguy cơ thiên lệch. Không tự gán phiên bản model khi phiên làm việc không cung cấp. Các nhãn AI không được đổi ngầm thành nhãn thủ công của học viên; cần xem xét theo GUIDE. Việc học viên duyệt gold/chunk ở Gate 2–3 không thay thế kiểm tra nhãn audit.
 
 ## Phân tích và kết luận
 
