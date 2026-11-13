@@ -1,4 +1,0 @@
-# Core database, PDF parsing, and environment configuration dependencies.
-psycopg[binary]==3.3.8
-pypdf>=5,<7
-python-dotenv>=1,<2

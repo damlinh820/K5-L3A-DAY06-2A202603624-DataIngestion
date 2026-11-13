@@ -25,7 +25,10 @@ def main():
     expected = {}
     query_checks, hit_checks = 0, 0
     for name in ['A', 'B', 'C', 'B_filter', 'B_filter_baseline']:
-        rows = [json.loads(line) for line in (result / f'trace_{name}.jsonl').read_text(encoding='utf-8').splitlines()]
+        source_name = 'B' if name == 'B_filter_baseline' else name
+        rows = [json.loads(line) for line in (result / f'trace_{source_name}.jsonl').read_text(encoding='utf-8').splitlines()]
+        if name == 'B_filter_baseline':
+            rows = [row for row in rows if row['requested_filter']]
         assert len(rows) == (20 if name in {'A', 'B', 'C'} else 3)
         assert len({row['id'] for row in rows}) == len(rows)
         for row in rows:
@@ -60,7 +63,6 @@ def main():
               'embedding_ledger_tokens_ingest_and_queries': total_tokens,
               'embedding_ledger_cost_usd_ingest_and_queries': round(total_cost, 10),
               'note': 'Saved trace/metric consistency only; no manual audit labels are inferred.'}
-    (result / 'phase4_integrity.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
     print(json.dumps(report))
 
 

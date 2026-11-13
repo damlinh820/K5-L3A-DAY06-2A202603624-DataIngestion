@@ -1,99 +1,69 @@
-# Day 06 · Data Ingestion Engineering
+# Data Ingestion — Luật Đất đai 31/2024/QH15
 
-## Trạng thái bài làm Luật Đất đai
+Bài cá nhân của **Đàm Tuấn Linh · 2A202603624 · L3A**. So sánh A fixed-size, B theo Điều và C theo Điều/Khoản trên ba PDF tiếp nối của cùng một luật, tổng 253 trang có text.
 
-Xem [checkpoint](CHECKPOINTS.md) và mục “Ghi chú xác nhận và trạng thái nộp bài” ở đầu [báo cáo cá nhân](report/individual/2A202603624_DamTuanLinh.md). Snapshot mã/kết quả đã commit và push: [f3a1470](https://github.com/damlinh820/K5-L3A-DAY06-2A202603624-DataIngestion/commit/f3a1470c357e144a97248ae7a9023a3113562faf). Gate 1–3 đã xác nhận; audit là nhãn AI, chưa ghi nhận cụ thể các dòng học viên xác minh. Việc nộp link qua kênh lớp do học viên tự xác nhận.
+**Đọc kết quả:** [Báo cáo](report/individual/2A202603624_DamTuanLinh.md) · [Chỉ số dev/test](results/metrics.csv) · [Corpus và nguồn PDF](data/manifest.json).
 
-Corpus hiện tại là ba PDF `data/luatdat1.pdf` đến `data/luatdat3.pdf`; [manifest](data/manifest.json) ghi nguồn Chính phủ và 253 trang có văn bản. Học viên đã xác nhận corpus ở Gate 1. Dùng môi trường `.venv-legal`, OpenRouter `openai/text-embedding-3-small` (1536 chiều), Chroma persistent cosine. Các bước cũ trong `starter/` là implementation trước đây cho corpus Đà Lạt, chưa phải pipeline chunk pháp lý A/B/C mới.
+## Cài đặt
 
-Gate 2 và Gate 3 đã được xác nhận; [20 câu benchmark](benchmark/REVIEW.md) đã khóa và commit tại `65922c5` trước retrieval. Ba cấu hình A/B/C đã ingest bằng embedding thật, nạp lại không nhân đôi. Dev chọn C trước test; xem [dev_selection.json](results/dev_selection.json), [test_run.json](results/test_run.json), [metrics.csv](results/metrics.csv). C đạt Evidence Hit@3 13/15 dev và 4/5 test. Theo yêu cầu mới của học viên, Codex đã chấm đủ 30/45/15 dòng audit: [kết quả dễ đọc](results/AUDIT_REVIEW.md), [phương pháp](results/audit_method.json). Đây là **nhãn AI, chưa có xác minh của học viên**, không phải nhãn thủ công độc lập.
-
-Từ bản clone mới, dùng Python 3.12 và chạy tại thư mục gốc; không cần kích hoạt PowerShell script:
+Python 3.12; chạy PowerShell tại thư mục gốc, không cần kích hoạt venv:
 
 ```powershell
 python -m venv .venv-legal
 .\.venv-legal\Scripts\python.exe -m pip install -r requirements.lock.txt
-.\.venv-legal\Scripts\python.exe scripts/verify_evidence.py
+```
+
+Nếu đã có venv thì bỏ lệnh tạo lại. Có thể dùng `py -3.12` thay `python`. Tokenizer `cl100k_base` có thể cần mạng tải dữ liệu lần đầu.
+
+## Kiểm tra kết quả đã nộp
+
+Không cần API key hoặc Chroma gốc:
+
+```powershell
 .\.venv-legal\Scripts\python.exe -m unittest discover -s tests -v
-.\.venv-legal\Scripts\python.exe scripts/check_phase4_integrity.py
-.\.venv-legal\Scripts\python.exe scripts/summarize_manual_audits.py --check-only
-.\.venv-legal\Scripts\python.exe scripts/check_submission.py
-```
-
-Các lệnh kiểm tra trên dùng snapshot/trace đã nộp, không gọi embedding hay chạy lại retrieval. Lần đầu tokenizer `cl100k_base` có thể cần mạng tải dữ liệu. Chỉ tạo venv khi chưa có; môi trường hiện có không cần tạo lại. Trên máy khác có Python 3.12, có thể dùng `py -3.12 -m venv .venv-legal`.
-
-PDF gốc, cache vector và Chroma không đưa vào Git. Tải ba PDF qua các URL trong [manifest](data/manifest.json), đặt lần lượt tại `data/luatdat1.pdf`, `luatdat2.pdf`, `luatdat3.pdf` và kiểm tra SHA-256 so với manifest trước khi dùng. Manifest ghi hash bản học viên cung cấp; chưa khẳng định bản tải mới từ cổng có hash giống hệt. `results/pages.jsonl`, `chunks_A/B/C.jsonl`, trace và log đã kèm theo để đối chiếu số liệu. `check_phase3_results.py` chỉ chạy khi có index/cache tại máy đã thực nghiệm; không áp dụng cho bản clone chưa có Chroma. Không gỡ khóa rồi ghi đè thí nghiệm hiện tại để chạy lại; một thí nghiệm mới phải có thư mục kết quả và hồ sơ riêng.
-
-`requirements.lock.txt` lưu phiên bản môi trường đã cài. API key tiếp tục được đọc từ `.env` hoặc `starter/.env`; không đưa key vào Git/chat. `prepare_legal_corpus.py` chỉ dùng để tạo snapshot ban đầu và từ chối chạy lại sau khi benchmark được khóa, để tránh đổi corpus ngoài ý muốn. Xem [protocol](benchmark/protocol.json) về split, tiêu chí chọn dev và cách giữ test.
-
-Lệnh đã dùng cho Phase 3, từ thư mục gốc (snapshot đã duyệt hiện được bảo vệ; không rebuild/re-ingest để đổi thí nghiệm):
-
-```powershell
-.\.venv-legal\Scripts\python.exe scripts/build_legal_chunks.py
-.\.venv-legal\Scripts\python.exe -m src.ingest --config all --verify-reingest
-.\.venv-legal\Scripts\python.exe scripts/check_phase3_results.py
-.\.venv-legal\Scripts\python.exe scripts/prepare_chunk_review.py
-```
-
-Index bền vững nằm tại `results/chroma/`, collection `land_law_a`, `land_law_b`, `land_law_c`, cosine HNSW. Cache `results/embedding_cache.jsonl` chỉ chứa vector từ response API thật, không phải fallback; cache và index được Git ignore. Dev/test đã chạy theo thứ tự dưới đây; evaluator từ chối chạy lại để chọn điểm đẹp hơn hoặc thay cấu hình sau khi xem test:
-
-```powershell
-.\.venv-legal\Scripts\python.exe -m src.evaluate --split dev
-.\.venv-legal\Scripts\python.exe -m src.evaluate --split test
-.\.venv-legal\Scripts\python.exe scripts/prepare_retrieval_audits.py
-```
-
-Kiểm tra tính nhất quán của trace đã lưu mà không chạy lại retrieval:
-
-```powershell
+.\.venv-legal\Scripts\python.exe scripts/verify_evidence.py
 .\.venv-legal\Scripts\python.exe scripts/check_phase4_integrity.py
 .\.venv-legal\Scripts\python.exe scripts/summarize_manual_audits.py --check-only
 ```
 
-Ba bảng `results/audit_coherence.csv`, `audit_metadata.csv`, `audit_grounding.csv` đã có điểm và lý do do AI chấm theo yêu cầu học viên; nguồn gốc được ghi trên từng dòng. Chạy `scripts/summarize_manual_audits.py` để kiểm tra và tổng hợp `results/audit_summary.json`; script không suy điểm từ Hit@3. Hướng dẫn xem xét nhãn ở [Gate 4](results/AUDIT_GUIDE.md). Bản báo cáo ở [report/individual/2A202603624_DamTuanLinh.md](report/individual/2A202603624_DamTuanLinh.md); [đối chiếu checklist nộp bài](results/SUBMISSION_REVIEW.md).
+Các lệnh kiểm tra 13 tests, gold của 20 câu, chỉ số so với trace và nhãn audit. Chúng không gọi embedding hay chạy lại retrieval. Bỏ `--check-only` để tổng hợp lại `results/audit_summary.json` từ nhãn đã ghi.
 
-**Lab cá nhân** · **4 giờ** · **Dữ liệu tự chọn**
+## Chạy lại pipeline
 
-Biến tài liệu thành kho tri thức có thể truy xuất cho AI agent, rồi đo xem cách chuẩn bị dữ liệu nào hiệu quả nhất.
+Chỉ chuẩn hóa/chia chunk, không gọi API:
 
-| 📄 Dữ liệu | 🧩 Chiến lược | 🎯 Benchmark |
-|---|---|---|
-| Tối thiểu **30 trang nội dung** | Tối thiểu **3 cấu hình** | Tối thiểu **20 câu hỏi** |
+```powershell
+.\.venv-legal\Scripts\python.exe -m src.run --output runs/prepare01 --prepare-only
+```
 
-## Bắt đầu nhanh
+Để chạy đủ embedding, ingest và retrieval, sao chép `.env.example` thành `.env`, điền `OPENROUTER_API_KEY`, rồi chạy:
 
-Dùng [starter PostgreSQL + pgvector](starter/README.md) để dựng database và chạy pipeline khung, hoặc tự chọn vector store tương đương. Bạn vẫn cần chuẩn bị corpus/manifest, tự viết và xác minh benchmark gold, rồi chạy thí nghiệm và audit thủ công.
+```powershell
+Copy-Item .env.example .env
+# Điền key vào .env; không ghi key trong lệnh hoặc commit lên Git.
+.\.venv-legal\Scripts\python.exe -m src.run --output runs/run01
+```
 
-## 1. Xây pipeline
+Nếu đã có `.env`, giữ file đó. Model: OpenRouter `openai/text-embedding-3-small`, 1536 chiều; Chroma persistent cosine. Lệnh chạy tạo A/B/C, batch embed thật, upsert hai lần để kiểm tra không trùng, chạy dev → lưu lựa chọn → chạy test; đo B/B+filter riêng trên cùng câu có yêu cầu phạm vi. Không tự sinh nhãn audit mới.
 
-![Đọc tài liệu, chuẩn hóa, chia chunk, tạo vector, lưu và kiểm tra](assets/ingestion-pipeline.svg)
+Mỗi lần chạy phải dùng **thư mục mới dưới `runs/`**. Index, cache, usage, log, trace và metrics mới nằm ở đó; không ghi đè `results/` đã nộp. Kết quả chạy lại là tái lập trên benchmark đã biết, không phải holdout mới; thời gian/chi phí có thể khác. Có thể thêm `--reuse-cache results/embedding_cache.jsonl` nếu máy đã có cache từ API thật; cache được sao chép sang lần chạy mới. Không dùng vector giả khi lỗi API.
 
-Chọn tài liệu được phép sử dụng; giữ **ID tài liệu, nguồn, trang/vị trí** và metadata phù hợp. Dùng embedding model thật qua API hoặc chạy local; lưu và truy xuất bằng pgvector, Qdrant, Chroma hoặc một store tương đương.
+Chroma dùng HNSW approximate: xây lại index có thể thay top-3 và chỉ số dù dùng cùng vector. Lần kiểm tra CLI bằng cache thật vẫn chọn C; B/test Hit@3 thành 4/5 thay vì 3/5 ở lần gốc. Các bảng trong báo cáo giữ kết quả gốc; dùng kiểm tra trace ở trên để tái tính chính xác số liệu đã nộp, không thay bằng lần chạy thuận lợi hơn.
 
-## 2. So sánh và đánh giá
+Pipeline chạy lại từ snapshot văn bản theo trang `results/pages.jsonl`. PDF gốc không cần cho bước này. Muốn đối chiếu PDF, tải ba tệp qua URL trong manifest, đặt tại `data/luatdat1.pdf` đến `luatdat3.pdf`, kiểm tra hash. `scripts/prepare_legal_corpus.py` là mã trích xuất PDF đã dùng; nó bảo vệ snapshot đã khóa nên không ghi đè corpus hiện tại. Bản tải mới từ cổng chưa được xác minh có hash giống hệt bản học viên cung cấp.
 
-![Ba chiến lược được đánh giá trên cùng corpus và benchmark dev/test](assets/benchmark-workflow.svg)
+## File chính
 
-Dùng cùng dữ liệu, model và câu hỏi cho cả ba cấu hình. Tách **15 câu dev / 5 câu test** trước khi chạy; chọn cấu hình trên dev, rồi đánh giá test sau khi cố định. Mỗi câu hỏi cần có đoạn bằng chứng và trang nguồn; thiết kế bộ câu hỏi và đánh giá theo [BENCHMARK.md](BENCHMARK.md).
-
-Đánh giá theo năm khía cạnh: **độ chính xác truy xuất**, **tính mạch lạc của chunk**, **tính hữu dụng của metadata**, **chất lượng grounding** và **tác động của chiến lược dữ liệu**. Giải thích lựa chọn bằng kết quả, ví dụ lỗi và các đánh đổi.
-
-## 3. Chuẩn bị bài nộp
-
-1. Chạy pipeline và lưu cấu hình, kết quả top-3, trace cùng nhãn đánh giá thủ công.
-2. Điền [thông tin học viên](STUDENT.md), [nhật ký thí nghiệm](artifacts/experiment_log.csv) và bản sao [mẫu báo cáo cá nhân](report/individual/MSSV_HoTen.md).
-3. Kiểm tra mã nguồn, cách chạy, manifest dữ liệu và checklist trong [SUBMISSION.md](SUBMISSION.md).
-
-## Tài liệu hướng dẫn
-
-| Bạn cần tìm | Tài liệu |
+| Đường dẫn | Nội dung |
 |---|---|
-| Setup baseline PostgreSQL + pgvector | [starter/README.md](starter/README.md) |
-| Các bước làm và cách tính chỉ số | [GUIDE.md](GUIDE.md) |
-| Tiến độ trong 4 giờ | [CHECKPOINTS.md](CHECKPOINTS.md) |
-| Năm tiêu chí benchmark và bộ câu hỏi | [BENCHMARK.md](BENCHMARK.md) |
-| Tiêu chí chấm điểm | [RUBRIC.md](RUBRIC.md) |
-| Quy tắc sử dụng dữ liệu, AI và API | [RULES.md](RULES.md) |
-| Cách nộp bài | [SUBMISSION.md](SUBMISSION.md) |
+| `src/` | Chuẩn hóa, chunking, embedding, lưu trữ, retrieval, đánh giá và CLI chạy lại |
+| `scripts/` | Bốn tiện ích: trích xuất PDF, kiểm chứng gold, kiểm tra trace, tổng hợp audit |
+| `benchmark/` | 20 câu/gold, split 15 dev/5 test, protocol và khóa trước retrieval |
+| `data/` | Manifest nguồn và xác nhận corpus/benchmark/chunk |
+| `results/` | Snapshot trang/chunk, trace, số liệu, usage/log và ba bảng audit có lý do |
+| `artifacts/experiment_log.csv` | Cấu hình, giả thuyết và kết quả A/B/C |
+| `report/individual/` | Báo cáo duy nhất của học viên |
 
-[data/format-example.json](data/format-example.json) chỉ minh họa định dạng, không phải corpus đủ điều kiện. Câu hỏi benchmark, nhãn gold, thí nghiệm và audit phải do bạn chuẩn bị/kiểm chứng; không bắt buộc xây chatbot.
+C được chọn trước test: Hit@3 **13/15 dev, 4/5 test**. Audit coherence/metadata/grounding được Codex chấm theo yêu cầu học viên, có `label_origin=ai_assisted`; **chưa có xác minh độc lập của học viên**. Phương pháp và giới hạn nằm trong báo cáo và `results/audit_method.json`.
+
+PDF, `.env`, venv, cache, Chroma và `runs/` bị Git ignore. Các tài liệu GUIDE/RULES/BENCHMARK/RUBRIC/SUBMISSION giữ yêu cầu gốc của bài; người chấm có thể bắt đầu từ README này và báo cáo.

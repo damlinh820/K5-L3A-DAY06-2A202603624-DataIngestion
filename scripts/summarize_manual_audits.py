@@ -60,12 +60,9 @@ def main():
               'pending_fields': len(pending), 'pending': pending,
               'review_method': origin, 'human_verified': method.get('human_verified', False),
               'note': 'Summarizes recorded labels with disclosed origin; AI labels are not independent human judgments.'}
-    (RESULTS / 'audit_status.json').write_text(json.dumps(status, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print(json.dumps({key: value for key, value in status.items() if key != 'pending'}))
     if pending or errors:
-        if not args.check_only:
-            raise SystemExit('Complete the audit labels and their provenance before requesting a summary.')
-        return
+        raise SystemExit('Complete the audit labels and their provenance before requesting a summary.')
     if args.check_only:
         return
     summary = {}
@@ -88,27 +85,6 @@ def main():
                           'independent_human_labels': method.get('independent_human_labels', False),
                           'details': 'results/audit_method.json'}
     (RESULTS / 'audit_summary.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    # An accessible view of the actual labels; never regenerate or infer scores here.
-    review = ['# Kết quả audit do AI hỗ trợ', '',
-              'Người chấm: Codex theo yêu cầu “vậy bạn chấm giúp mình”. Chưa có xác minh của học viên; đây không phải nhãn thủ công độc lập. Phương pháp và hạn chế: [audit_method.json](audit_method.json).', '',
-              '| Cấu hình | Coherence /2 (10 mẫu) | Metadata đúng-đủ | Filter: câu có đủ 3 hit đúng phạm vi | Grounding /2 (5 câu) | Grounding 0 / 1 / 2 |',
-              '|---|---:|---:|---:|---:|---|']
-    for config in ['A', 'B', 'C']:
-        s = summary[config]
-        counts = s['grounding']['counts_0_1_2']
-        review.append(f"| {config} | {s['coherence']['mean_out_of_2']:.2f} | {s['metadata']['correct_complete_count']}/{s['metadata']['total']} | {s['filter']['all_top3_compliant_queries']}/{s['filter']['query_count']} | {s['grounding']['mean_out_of_2']:.2f} | {counts[0]} / {counts[1]} / {counts[2]} |")
-    review += ['', 'Metadata đúng nguồn khác với bằng chứng đủ để trả lời. Q19 có yêu cầu phần 3: A/B trả cả ba hit ở phần 2; C chỉ có hit thứ ba đúng phạm vi. B+filter là thí nghiệm riêng, không thay điểm của A/B/C chính.', '',
-               'Các nhãn được xem sau khi đã có điểm retrieval, cùng assistant viết pipeline và chấm nên có nguy cơ thiên lệch. Không thay đổi lựa chọn C đã khóa trước test.', '', '## Coherence — 30 mẫu', '']
-    for row in groups['coherence']:
-        review += [f"- **{row['config']} / {row['position_id']} / Điều {row['article']} — {row['score_0_1_2']}/2:** {row['reason']}"]
-    review += ['', '## Grounding — 15 đánh giá', '']
-    for row in groups['grounding']:
-        review += [f"### {row['config']} / {row['question_id']} — {row['score_0_1_2']}/2", '', row['question'], '', row['reason'], '']
-    review += ['## Metadata — 45 bản ghi', '',
-               'Đã trích xuất lại text layer ở 22 trang PDF liên quan (kể cả trang gold test), kiểm tra hash PDF và offset nguồn. Đây là kiểm tra text/provenance, không phải kiểm tra bố cục bằng mắt hoặc xác minh pháp luật hiện hành. Xem [ai_audit_source_checks.json](ai_audit_source_checks.json).', '']
-    for row in groups['metadata']:
-        review.append(f"- **{row['config']} / {row['question_id']} / rank {row['rank']}:** metadata {row['metadata_complete_correct_0_1']}; filter {row['filter_compliant_0_1_or_NA']}. {row['reason']}")
-    (RESULTS / 'AUDIT_REVIEW.md').write_text('\n'.join(review) + '\n', encoding='utf-8')
 
 
 if __name__ == '__main__':
