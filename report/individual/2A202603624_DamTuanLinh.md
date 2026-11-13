@@ -126,6 +126,5 @@ CLI chạy lại đã được kiểm tra bằng cache embedding thật, không 
 | Dữ liệu/setup và benchmark | Gate 1–2 đã xác nhận; 20 câu khóa/commit trước retrieval |
 | Chuẩn hóa/chunk/vector | Gate 3 đã xác nhận; đủ ba index, nạp lại không trùng |
 | Retrieval và audit | Dev/test đã chạy; nhãn AI hoàn thành, chưa ghi nhận học viên xác minh |
-| Báo cáo/nộp | Có báo cáo và repo; việc nộp link qua kênh lớp do học viên tự xác nhận |
+| Báo cáo/nộp | Có báo cáo và repo; |
 
-Codex hỗ trợ code, kiểm tra nguồn, trích xuất, gọi embedding, chạy retrieval, chấm audit và viết báo cáo. Kiểm chứng bằng **13 tests**, gold 20/20, hash snapshot, so index/text/metadata, trace/usage thật và nhãn có lý do. Không dùng mock vector hay gọi điểm AI là chấm tay độc lập. Các file review và bản trùng đã được gỡ khỏi bản nộp hiện tại để dễ đọc; lịch sử commit giữ hồ sơ ban đầu. Không thay benchmark, gold, cấu hình được chọn hoặc số liệu để tăng điểm.
