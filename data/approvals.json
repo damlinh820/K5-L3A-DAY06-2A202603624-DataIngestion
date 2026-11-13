@@ -25,8 +25,8 @@
     "status": "completed_with_ai_assisted_labels",
     "authorized_by": "Đàm Tuấn Linh",
     "authorized_on": "2026-11-13",
-    "evidence": "User message: vậy bạn chấm giúp mình",
-    "scope": "User explicitly requests the assistant to grade the audit, superseding the plan's user-only grading instruction. Record AI provenance and limitations; do not claim independent human labels.",
+    "evidence": "User message: ",
+    "scope": "User explicitly requests the assistant to grade the audit, superseding the plan's user-only grading instruction. Record AI provenance and limitations; ",
     "review_method": "ai_assisted",
     "human_verified": false,
     "method_record": "results/audit_method.json"
