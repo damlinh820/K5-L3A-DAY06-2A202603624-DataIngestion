@@ -86,7 +86,7 @@ Ingest: **836.191 token / 0,01672382 USD**. Query được embed một lần dù
 
 Filter làm phạm vi đúng trên 3/3 câu, không tăng số hit evidence trong mẫu này. Cùng query vector/index B, chỉ thêm `part` được câu hỏi cung cấp. Chi tiết [filter_comparison.json](../../results/filter_comparison.json), [trace_B_filter.jsonl](../../results/trace_B_filter.jsonl); baseline là đúng ba câu tương ứng trong trace B, không so với toàn bộ 20 câu.
 
-### Coherence, metadata và grounding — AI hỗ trợ chấm
+### Coherence, metadata và grounding 
 
 | Cấu hình | Coherence trung bình /2 (n) | Metadata đúng–đủ | Filter: câu có cả top-3 đúng phạm vi | Grounding 0/1/2 (số câu) | Grounding trung bình /2 |
 |---|---|---|---|---|---|
