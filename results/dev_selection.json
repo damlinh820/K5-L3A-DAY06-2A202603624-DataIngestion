@@ -1,0 +1,73 @@
+{
+  "status": "frozen_before_test",
+  "selected_config": "C",
+  "at_utc": "2026-11-13T10:48:12.543060+00:00",
+  "criteria": [
+    "maximize dev Evidence Hit@3",
+    "then dev Hit@1",
+    "then fewer document embedding tokens",
+    "then lexical config name for deterministic ties"
+  ],
+  "ranked_dev_metrics": [
+    {
+      "strategy": "C",
+      "split": "dev",
+      "questions": 15,
+      "hit_at_1_count": 11,
+      "hit_at_1_total": 15,
+      "hit_at_1_rate": 0.7333333333333333,
+      "evidence_hit_at_3_count": 13,
+      "evidence_hit_at_3_total": 15,
+      "evidence_hit_at_3_rate": 0.8666666666666667
+    },
+    {
+      "strategy": "B",
+      "split": "dev",
+      "questions": 15,
+      "hit_at_1_count": 6,
+      "hit_at_1_total": 15,
+      "hit_at_1_rate": 0.4,
+      "evidence_hit_at_3_count": 10,
+      "evidence_hit_at_3_total": 15,
+      "evidence_hit_at_3_rate": 0.6666666666666666
+    },
+    {
+      "strategy": "A",
+      "split": "dev",
+      "questions": 15,
+      "hit_at_1_count": 7,
+      "hit_at_1_total": 15,
+      "hit_at_1_rate": 0.4666666666666667,
+      "evidence_hit_at_3_count": 8,
+      "evidence_hit_at_3_total": 15,
+      "evidence_hit_at_3_rate": 0.5333333333333333
+    }
+  ],
+  "document_embedding_tokens": {
+    "A": 299933,
+    "B": 262491,
+    "C": 306697
+  },
+  "benchmark_sha256": "fa49a88cd96ad388b778e1cc91f77ac928be0b05e211cdfa8f58fd85dd367f8c",
+  "chunk_hashes": {
+    "A": "8ea64713e8970907fe14cd6734c818cd773a030fc6392e11505a2fd632df0efd",
+    "B": "9c6640cb055a7f29359691930391b86e97e37818df310cb2080033d33284d224",
+    "C": "761c7126c47f6ad81ef3cb7ab034cc7a2c22dd84a42d358ed31b8d75a3d9114e"
+  },
+  "code_snapshot": {
+    "src/chunkers.py": "cd1eae8f5967d5e8080046ed0d914d815441394055aa656d35661764f9ec84b6",
+    "src/normalize.py": "7f383f849fbdc84aa4aaf6710df068e27a14c51bc05aee650f1ea4bd313fd0e4",
+    "src/tokenizer.py": "8eaf9b52abad5f95101a266d2a5cfee6d6618090a149ca0574f58265f403df71",
+    "src/embed.py": "b227f5288da2d42bf567b4a526e1ffdd2ce7e22332bdfc3a6dcd0060ad01fd11",
+    "src/store.py": "3da1874b44d36166b96e8821ae0a583b29da138d9f9bd34982029919b65fc9fd",
+    "src/retrieve.py": "9198641fb0f628b1a0f2278284bb72093a373068e643f3aab8fbcc45b11fc379",
+    "src/evaluate.py": "e7735a7aa9d5e754d75c32d42cf8e86a46a26696e0743a9aec2ad91098fb96a5",
+    "src/extract.py": "e66e761cb6f6c58477277bbca9d02e3bc16ee135bde698f66d5ea13be84eafb7"
+  },
+  "dev_trace_hashes": {
+    "A": "5db50c59bce92dbb323b9aba9448a31462d0dbf7067f850bbd3a2fea3b6a8a89",
+    "B": "2fa2eace3793703a501b4e35b0ae37280305760fb9f4331e548482bfa1a47a68",
+    "C": "5ff2d5f6e174b50281c107b6f5f1b832c2d9ccbd6730e2bc672dd00c8c57a1c0"
+  },
+  "test_retrieval_has_run": false
+}

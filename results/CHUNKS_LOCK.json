@@ -1,0 +1,10 @@
+{
+  "status": "approved_before_retrieval",
+  "approved_on": "2026-11-13",
+  "benchmark_sha256": "fa49a88cd96ad388b778e1cc91f77ac928be0b05e211cdfa8f58fd85dd367f8c",
+  "chunk_hashes": {
+    "A": "8ea64713e8970907fe14cd6734c818cd773a030fc6392e11505a2fd632df0efd",
+    "B": "9c6640cb055a7f29359691930391b86e97e37818df310cb2080033d33284d224",
+    "C": "761c7126c47f6ad81ef3cb7ab034cc7a2c22dd84a42d358ed31b8d75a3d9114e"
+  }
+}

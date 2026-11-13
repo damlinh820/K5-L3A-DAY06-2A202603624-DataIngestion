@@ -1,4 +1,4 @@
 strategy,chunking,chunk_size,overlap,metadata,filter,vectorizer,hypothesis,dev_hit1,dev_hit3,test_hit1,test_hit3,notes
-A,,,,,,,,,,,,
-B,,,,,,,,,,,,
-C,,,,,,,,,,,,
+A,fixed_tokens,512,64,"document_id;source;part;page;page_end;provenance",none,openai/text-embedding-3-small,"Fixed token windows may split legal conditions; overlapping windows may improve recall at increased token cost",0.4666666666666667,0.5333333333333333,0.2,0.6,"From results/metrics.csv: dev 7/15 and 8/15; test 1/5 and 3/5. Unicode-safe boundaries; no test tuning."
+B,whole_article,,0,"document_id;source;part;page;page_end;chapter;article;provenance",none,openai/text-embedding-3-small,"Whole articles retain legal context but long chunks may reduce specificity",0.4,0.6666666666666666,0.6,0.6,"From results/metrics.csv: dev 6/15 and 10/15; test 3/5 and 3/5. B versus B+filter measured separately on same restricted questions."
+C,article_then_clause,512,0,"document_id;source;part;page;page_end;chapter;article;clause;provenance",none,openai/text-embedding-3-small,"Splitting long articles at original clauses may improve specificity while repeating headings increases token cost",0.7333333333333333,0.8666666666666667,0.2,0.8,"From results/metrics.csv: dev 11/15 and 13/15; test 1/5 and 4/5. Selected on dev before test; 512 is splitting threshold not hard clause-size cap."

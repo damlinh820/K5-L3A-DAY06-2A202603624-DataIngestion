@@ -8,3 +8,10 @@ __pycache__/
 .DS_Store
 .pytest_cache/
 *.sqlite
+# Local PDF snapshots can contain media with separate licenses; keep them local by default.
+starter/data/*.pdf
+.venv-legal/
+data/luatdat*.pdf
+results/chroma*/
+results/tokenizer_cache/
+results/embedding_cache.jsonl

@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "model": "openai/text-embedding-3-small",
+  "dimensions": 1536,
+  "chroma_version": "1.5.9",
+  "path": "results/chroma_setup_probe",
+  "first_write_count": 2,
+  "repeat_upsert_count": 2,
+  "reader_check": {
+    "reopened_count": 2,
+    "top1_id": "setup-one",
+    "filtered_ids": [
+      "setup-two"
+    ],
+    "metric": "cosine",
+    "process_id": 22336
+  },
+  "usage": {
+    "prompt_tokens": 37,
+    "total_tokens": 37,
+    "cost": 7.4e-07,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 7.4e-07,
+      "upstream_inference_prompt_cost": 7.4e-07,
+      "upstream_inference_completions_cost": 0
+    }
+  },
+  "scope": "Isolated setup fixtures with real API vectors; no corpus retrieval or benchmark results."
+}

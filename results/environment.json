@@ -1,0 +1,12 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "packages": {
+    "pdfplumber": "0.11.9",
+    "pdfminer.six": "20251230",
+    "chromadb": "1.5.9",
+    "tiktoken": "0.14.0",
+    "httpx": "0.28.1",
+    "python-dotenv": "1.2.4"
+  }
+}

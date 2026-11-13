@@ -1,65 +1,82 @@
 # Starter · PostgreSQL + pgvector
 
-Bộ khởi động **tùy chọn** cho lab cá nhân. Docker Compose tạo PostgreSQL + pgvector local; các file trong `src/` là **khung pseudocode có TODO**, chưa đọc tài liệu, tạo embedding, lưu vector hay chạy benchmark. Bạn cần tự hiện thực. Vẫn có thể chọn Qdrant, Chroma hoặc vector store tương đương theo [GUIDE.md](../GUIDE.md).
+> Đây là triển khai Đà Lạt trước khi đổi corpus, được giữ để tham khảo. Bài nộp Luật Đất đai hiện tại dùng `src/`, `data/` và `results/` ở thư mục gốc với OpenRouter + Chroma. Xem [README chính](../README.md) để kiểm tra kết quả bài nộp; các lệnh bên dưới thuộc pipeline cũ.
 
-## Cấu trúc
+Starter tùy chọn cho lab cá nhân. Bộ khung `src/` đã được nối thành pipeline Python chạy local; cần đặt dữ liệu và benchmark của học viên vào đúng vị trí trước khi chạy. Có thể thay pgvector bằng vector store tương đương nếu ghi rõ cấu hình trong báo cáo.
+
+## Cấu trúc chính
 
 ```text
 starter/
-├── docker-compose.yml     # PostgreSQL 16 + pgvector, chỉ mở cổng local
-├── init.sql               # bật extension khi tạo database mới
-├── requirements.txt       # psycopg, pypdf và python-dotenv
-├── .env.example           # cấu hình mẫu; copy thành .env
-├── scripts/check_setup.py # kiểm tra kết nối và extension (đã chạy được)
-├── src/
-│   ├── models.py          # cấu trúc dữ liệu mẫu
-│   ├── ingestion.py       # TODO: đọc / chuẩn hóa tài liệu
-│   ├── chunking.py        # TODO: chia chunk
-│   ├── embeddings.py      # TODO: chọn model API hoặc local
-│   ├── store.py           # TODO: lưu vector, metadata và filter
-│   ├── evaluation.py      # TODO: chấm truy xuất, lưu trace
-│   └── run.py             # TODO: kết nối các bước thành pipeline
-├── data/                  # bạn tự chuẩn bị corpus được phép sử dụng
-└── results/               # lưu kết quả của bạn
+├── docker-compose.yml
+├── requirements.txt
+├── requirements-embeddings.txt
+├── .env.example
+├── scripts/check_setup.py
+├── src/                 # ingestion, chunking, embeddings, pgvector, evaluation, run
+├── data/manifest.json   # manifest mẫu cho hai bài Wikipedia về Đà Lạt
+├── data/*.pdf           # bạn tự đặt các PDF được phép xử lý
+└── results/             # thống kê, trace và mẫu audit được tạo khi chạy
 ```
 
 ## 1. Cài và kiểm tra database
 
-Cần Docker Desktop hoặc Docker Engine + Compose, Python **3.11–3.14**, và mạng để tải image/dependencies lần đầu. Các lệnh sau chạy từ thư mục `starter/`:
+Cần Docker Desktop/Engine + Compose, Python **3.11–3.14**, và mạng để tải dependencies/model lần đầu. Chạy các lệnh từ thư mục `starter/`:
 
-```bash
-cd starter
-python3 -m venv .venv
-```
-
-Kích hoạt `.venv`: macOS/Linux dùng `source .venv/bin/activate`; Windows PowerShell dùng `.venv\Scripts\Activate.ps1`. Sau đó:
-
-```bash
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
-# macOS/Linux: cp .env.example .env
-# Windows PowerShell: Copy-Item .env.example .env
+python -m pip install -r requirements-embeddings.txt
+Copy-Item .env.example .env
 docker compose -p day6_student_starter up -d --wait
 python scripts/check_setup.py
 ```
 
-Kỳ vọng: hiện tên database, phiên bản PostgreSQL và pgvector, sau đó `Setup OK`. Đây **chỉ là kiểm tra hạ tầng**, không phải kết quả benchmark. Docker dùng cổng `127.0.0.1:55433` và mật khẩu cố định **chỉ dùng local cho lab**; nếu cổng bận, sửa đồng thời port trong `docker-compose.yml` và `DATABASE_URL` trong `.env`. `init.sql` chỉ chạy khi volume mới được tạo; nếu database sẵn có chưa bật extension, xem log Docker và kiểm tra cấu hình thay vì xóa volume chứa dữ liệu.
+Kỳ vọng setup báo PostgreSQL và pgvector, sau đó `Setup OK`; đây chỉ là kiểm tra hạ tầng. Docker chỉ mở cổng local `127.0.0.1:55433`; mật khẩu trong compose chỉ dùng cho lab local. Nếu cổng bận, đổi port trong compose và `DATABASE_URL` trong `.env`. Dừng database mà giữ volume bằng `docker compose -p day6_student_starter stop`.
 
-Dừng container nhưng giữ dữ liệu:
+## 2. Embedding local
 
-```bash
-docker compose -p day6_student_starter stop
+Adapter dùng model multilingual Sentence Transformers mặc định `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`; model báo 384 chiều. Tài liệu và query dùng cùng model. Lần đầu cần mạng để tải trọng số; mặc định chạy CPU. Có thể đổi `EMBEDDING_MODEL`, `EMBEDDING_DEVICE` và `EMBEDDING_BATCH_SIZE` trong `.env`. Các API key mẫu chưa được adapter này sử dụng; không cần API key cho cấu hình local. Ghi phiên bản package, model và thiết bị thực tế vào báo cáo.
+
+## 3. Đặt corpus và benchmark
+
+1. Đặt PDF theo `local_path` trong [`data/manifest.json`](data/manifest.json), hoặc sửa đường dẫn đó. Manifest dùng URL revision cố định, page range nội dung và metadata `article`. Không tính các trang chỉ có tham khảo. Kiểm tra quyền/giấy phép và ghi công; PDF trong `data/` bị Git ignore mặc định vì có thể chứa ảnh với giấy phép riêng. Nếu không được phép nộp PDF gốc, nộp manifest/hướng dẫn lấy dữ liệu theo yêu cầu môn học.
+2. Trước khi full run, tạo `benchmark/questions.json` theo [BENCHMARK.md](../BENCHMARK.md): tối thiểu 20 câu, 15 dev / 5 test, ít nhất 3 câu có filter và 1 câu filter trong test. Gold source/page/evidence phải được kiểm tra thủ công trên bản nguồn. Câu có filter phải cung cấp phạm vi trước truy xuất và dùng giá trị metadata thật.
+
+Mẫu một câu hỏi:
+
+```json
+{
+  "id": "q01",
+  "split": "dev",
+  "question": "Câu hỏi được diễn đạt tự nhiên",
+  "expected_answer": "Đáp án kiểm chứng từ nguồn",
+  "gold_source_id": "dalat",
+  "gold_page": 1,
+  "evidence_quote": "Đoạn ngắn được kiểm tra trực tiếp",
+  "filter": {}
+}
 ```
 
-## 2. Chọn embedding model
+Để filter chiến lược C theo tài liệu, ví dụ: `"filter": {"article": "Lịch sử Đà Lạt"}`. Không đưa đáp án hoặc gold source vào query/filter.
 
-Điền key tương ứng trong `.env` nếu dùng OpenRouter, OpenAI hoặc Gemini; **không commit `.env`**. Model local không cần API key. `requirements.txt` chỉ có dependencies cơ bản: tự cài SDK hoặc thư viện local phù hợp với model bạn chọn và ghi lại version/lệnh cài trong báo cáo. Ghi tên model và số chiều; dùng cùng model cho toàn bộ chiến lược và vector query tương thích vector document.
+## 4. Chạy pipeline
 
-## 3. Hoàn thiện pipeline
+Từ thư mục `starter/`:
 
-1. Đặt corpus vào `data/` hoặc cung cấp manifest/hướng dẫn truy cập. Đọc [GUIDE.md](../GUIDE.md) về **30 trang nội dung**, quyền dữ liệu và metadata.
-2. Hoàn thiện từng hàm TODO trong `src/`. Lưu ID tài liệu, nguồn, trang/vị trí và ít nhất một trường filter có ích.
-3. Xây ít nhất ba cấu hình; ví dụ A fixed-size, B theo đoạn, C như B nhưng có filter. Cần cùng corpus, model và benchmark; nạp lại không nhân đôi và xử lý chunk cũ khi dữ liệu đổi.
-4. Tự viết ít nhất 20 câu hỏi kèm evidence, tách dev/test trước khi thử theo [BENCHMARK.md](../BENCHMARK.md). Lưu trace top-3 và báo cáo đủ năm tiêu chí.
-5. Sau khi hoàn thiện, chạy `python -m src.run` từ thư mục `starter/`. Trước khi làm TODO, lệnh này **chủ động báo `NotImplementedError`**.
+```powershell
+python -m src.run --ingest-only
+python -m src.run
+```
 
-Lưu code, cấu hình, kết quả và lệnh chạy để người chấm tái lập; không commit key, dữ liệu mật hoặc dữ liệu không có quyền chia sẻ.
+`--ingest-only` tạo index A (fixed 500/50), B (theo đoạn, tối đa 1000 ký tự), C (cùng chunk với B, filter chỉ lúc search) nhưng không chạy benchmark. Lệnh thứ hai cần benchmark hợp lệ; nó chạy top-3 cho mọi câu trên cả ba strategy và ghi:
+
+- `results/ingest_summary.json`: số trang/chunk, kích thước và thời gian ingest.
+- `results/traces.jsonl`: câu hỏi, kết quả top-3, metadata và nhãn evidence tự động.
+- `results/retrieval_summary.json`: Hit@1 và Evidence Hit@3 theo split.
+- `results/manual_audit_template.csv`: mẫu trống để học viên tự chấm coherence, metadata/filter và grounding.
+
+Adapter đánh giá tự động chỉ đo khớp gold evidence; nó không suy ra nhãn coherence hoặc grounding. Người học phải kiểm tra nhãn thủ công và ghi hạn chế. Mỗi lần chạy sẽ thay index theo strategy trong một transaction để không giữ chunk cũ hoặc nhân đôi dữ liệu. Không có fallback vector giả khi model/database lỗi.
+
+Lưu code, lệnh chạy, cấu hình và kết quả để tái lập. Không commit `.env`, API key, dữ liệu riêng tư hoặc nội dung không có quyền chia sẻ.

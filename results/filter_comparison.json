@@ -1,0 +1,44 @@
+{
+  "pairs": [
+    {
+      "id": "q05",
+      "split": "dev",
+      "filter": {
+        "part": 1
+      },
+      "baseline_hit_at_1": false,
+      "filtered_hit_at_1": false,
+      "baseline_hit_at_3": true,
+      "filtered_hit_at_3": true,
+      "baseline_scope_compliant": true,
+      "filtered_scope_compliant": true
+    },
+    {
+      "id": "q12",
+      "split": "dev",
+      "filter": {
+        "part": 2
+      },
+      "baseline_hit_at_1": true,
+      "filtered_hit_at_1": true,
+      "baseline_hit_at_3": true,
+      "filtered_hit_at_3": true,
+      "baseline_scope_compliant": false,
+      "filtered_scope_compliant": true
+    },
+    {
+      "id": "q19",
+      "split": "test",
+      "filter": {
+        "part": 3
+      },
+      "baseline_hit_at_1": false,
+      "filtered_hit_at_1": false,
+      "baseline_hit_at_3": false,
+      "filtered_hit_at_3": false,
+      "baseline_scope_compliant": false,
+      "filtered_scope_compliant": true
+    }
+  ],
+  "note": "Same B index/model/query vectors; only explicit user-provided part filter changes. Scope compliance is a metadata-value check, not a manual source audit."
+}

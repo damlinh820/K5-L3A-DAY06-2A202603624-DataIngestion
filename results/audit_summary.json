@@ -1,0 +1,78 @@
+{
+  "A": {
+    "coherence": {
+      "n": 10,
+      "mean_out_of_2": 1.0
+    },
+    "metadata": {
+      "correct_complete_count": 15,
+      "total": 15
+    },
+    "filter": {
+      "query_count": 1,
+      "all_top3_compliant_queries": 0
+    },
+    "grounding": {
+      "n": 5,
+      "counts_0_1_2": {
+        "0": 1,
+        "1": 1,
+        "2": 3
+      },
+      "mean_out_of_2": 1.4
+    }
+  },
+  "B": {
+    "coherence": {
+      "n": 10,
+      "mean_out_of_2": 2.0
+    },
+    "metadata": {
+      "correct_complete_count": 15,
+      "total": 15
+    },
+    "filter": {
+      "query_count": 1,
+      "all_top3_compliant_queries": 0
+    },
+    "grounding": {
+      "n": 5,
+      "counts_0_1_2": {
+        "0": 0,
+        "1": 2,
+        "2": 3
+      },
+      "mean_out_of_2": 1.6
+    }
+  },
+  "C": {
+    "coherence": {
+      "n": 10,
+      "mean_out_of_2": 2.0
+    },
+    "metadata": {
+      "correct_complete_count": 15,
+      "total": 15
+    },
+    "filter": {
+      "query_count": 1,
+      "all_top3_compliant_queries": 0
+    },
+    "grounding": {
+      "n": 5,
+      "counts_0_1_2": {
+        "0": 1,
+        "1": 0,
+        "2": 4
+      },
+      "mean_out_of_2": 1.6
+    }
+  },
+  "_method": {
+    "review_method": "ai_assisted",
+    "reviewer": "Codex conversational assistant",
+    "human_verified": false,
+    "independent_human_labels": false,
+    "details": "results/audit_method.json"
+  }
+}

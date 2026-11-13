@@ -1,0 +1,16 @@
+{
+  "checked_at_utc": "2026-11-13T11:27:48.480464+00:00",
+  "status": "passed_with_disclosed_ai_audit",
+  "candidate_files_checked": 134,
+  "python_files_syntax_checked": 37,
+  "secrets_scan": "credential-shaped strings and environment file paths; no values printed",
+  "locked_benchmark_valid": true,
+  "selected_config": "C",
+  "audit_origin": "ai_assisted",
+  "human_verified": false,
+  "errors": [],
+  "remaining_user_actions": [
+    "Review AI labels if required by coach; independent human grading is not claimed.",
+    "Submit the repository link through the instructor-designated channel."
+  ]
+}

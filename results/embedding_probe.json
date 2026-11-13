@@ -1,0 +1,65 @@
+{
+  "model": "text-embedding-3-small",
+  "dimensions": 1536,
+  "pricing": {
+    "prompt": "0.00000002",
+    "completion": "0"
+  },
+  "usage": {
+    "prompt_tokens": 21,
+    "total_tokens": 21,
+    "cost": 4.2e-07,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 4.2e-07,
+      "upstream_inference_prompt_cost": 4.2e-07,
+      "upstream_inference_completions_cost": 0
+    }
+  },
+  "catalog_model": {
+    "id": "openai/text-embedding-3-small",
+    "canonical_slug": "openai/text-embedding-3-small",
+    "hugging_face_id": "",
+    "name": "OpenAI: Text Embedding 3 Small",
+    "created": 1761857455,
+    "description": "text-embedding-3-small is OpenAI's improved, more performant version of the ada embedding model. Embeddings are a numerical representation of text that can be used to measure the relatedness between two pieces...",
+    "context_length": 8192,
+    "architecture": {
+      "modality": "text->embeddings",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "embeddings"
+      ],
+      "tokenizer": "Other",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.00000002",
+      "completion": "0"
+    },
+    "top_provider": {
+      "context_length": 8192,
+      "max_completion_tokens": null,
+      "is_moderated": false
+    },
+    "per_request_limits": null,
+    "supported_parameters": [],
+    "default_parameters": {
+      "temperature": null,
+      "top_p": null,
+      "frequency_penalty": null
+    },
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/openai/text-embedding-3-small/endpoints"
+    },
+    "endpoints": [
+      "/api/v1/embeddings"
+    ]
+  },
+  "status": "one-real-embedding-probe-succeeded"
+}

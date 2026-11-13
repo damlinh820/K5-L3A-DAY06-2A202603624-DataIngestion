@@ -1,0 +1,15 @@
+{
+  "status": "complete",
+  "at_utc": "2026-11-13T10:48:54.407857+00:00",
+  "selected_config_frozen_before_test": "C",
+  "selection_file_sha256": "097ef6c48e6d045223f71e9ddde5df9cb6bbd78b47deec05dee15cdb22fa8205",
+  "benchmark_sha256": "fa49a88cd96ad388b778e1cc91f77ac928be0b05e211cdfa8f58fd85dd367f8c",
+  "test_ids": [
+    "q16",
+    "q17",
+    "q18",
+    "q19",
+    "q20"
+  ],
+  "test_metrics_used_for_tuning": false
+}

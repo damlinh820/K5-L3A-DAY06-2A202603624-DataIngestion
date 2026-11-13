@@ -1,0 +1,3 @@
+# Local multilingual semantic embedding backend used by src/embeddings.py.
+# Install after requirements.txt; this package may download model/runtime weights.
+sentence-transformers>=5,<6

@@ -1,0 +1,14 @@
+{
+  "split": "dev",
+  "query_embedding": {
+    "requested_inputs": 15,
+    "new_unique_inputs": 15,
+    "all_inputs_cached": false,
+    "api_calls": 1,
+    "actual_api_tokens": 792,
+    "actual_api_cost_usd": 1.584e-05,
+    "seconds": 3.112802300020121
+  },
+  "retrieval_wall_seconds_including_cache_load": 4.003830500005279,
+  "questions_embedded_once_and_shared_across_configs": true
+}

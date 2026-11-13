@@ -1,5 +1,57 @@
 # Day 06 · Data Ingestion Engineering
 
+## Trạng thái bài làm Luật Đất đai
+
+Trước khi đưa lên Git, xem [checkpoint đã/chưa hoàn thành](CHECKPOINTS.md) và mục “Ghi chú cho học viên trước khi đưa lên Git” ở đầu [báo cáo cá nhân](report/individual/2A202603624_DamTuanLinh.md). Gate 1–3 đã xác nhận; còn xem xét nhãn AI ở Gate 4, chốt commit, push và nộp link.
+
+Corpus hiện tại là ba PDF `data/luatdat1.pdf` đến `data/luatdat3.pdf`; [manifest](data/manifest.json) ghi nguồn Chính phủ và 253 trang có văn bản. Học viên đã xác nhận corpus ở Gate 1. Dùng môi trường `.venv-legal`, OpenRouter `openai/text-embedding-3-small` (1536 chiều), Chroma persistent cosine. Các bước cũ trong `starter/` là implementation trước đây cho corpus Đà Lạt, chưa phải pipeline chunk pháp lý A/B/C mới.
+
+Gate 2 và Gate 3 đã được xác nhận; [20 câu benchmark](benchmark/REVIEW.md) đã khóa và commit tại `65922c5` trước retrieval. Ba cấu hình A/B/C đã ingest bằng embedding thật, nạp lại không nhân đôi. Dev chọn C trước test; xem [dev_selection.json](results/dev_selection.json), [test_run.json](results/test_run.json), [metrics.csv](results/metrics.csv). C đạt Evidence Hit@3 13/15 dev và 4/5 test. Theo yêu cầu mới của học viên, Codex đã chấm đủ 30/45/15 dòng audit: [kết quả dễ đọc](results/AUDIT_REVIEW.md), [phương pháp](results/audit_method.json). Đây là **nhãn AI, chưa có xác minh của học viên**, không phải nhãn thủ công độc lập.
+
+Từ bản clone mới, dùng Python 3.12 và chạy tại thư mục gốc; không cần kích hoạt PowerShell script:
+
+```powershell
+python -m venv .venv-legal
+.\.venv-legal\Scripts\python.exe -m pip install -r requirements.lock.txt
+.\.venv-legal\Scripts\python.exe scripts/verify_evidence.py
+.\.venv-legal\Scripts\python.exe -m unittest discover -s tests -v
+.\.venv-legal\Scripts\python.exe scripts/check_phase4_integrity.py
+.\.venv-legal\Scripts\python.exe scripts/summarize_manual_audits.py --check-only
+.\.venv-legal\Scripts\python.exe scripts/check_submission.py
+```
+
+Các lệnh kiểm tra trên dùng snapshot/trace đã nộp, không gọi embedding hay chạy lại retrieval. Lần đầu tokenizer `cl100k_base` có thể cần mạng tải dữ liệu. Chỉ tạo venv khi chưa có; môi trường hiện có không cần tạo lại. Trên máy khác có Python 3.12, có thể dùng `py -3.12 -m venv .venv-legal`.
+
+PDF gốc, cache vector và Chroma không đưa vào Git. Tải ba PDF qua các URL trong [manifest](data/manifest.json), đặt lần lượt tại `data/luatdat1.pdf`, `luatdat2.pdf`, `luatdat3.pdf` và kiểm tra SHA-256 so với manifest trước khi dùng. Manifest ghi hash bản học viên cung cấp; chưa khẳng định bản tải mới từ cổng có hash giống hệt. `results/pages.jsonl`, `chunks_A/B/C.jsonl`, trace và log đã kèm theo để đối chiếu số liệu. `check_phase3_results.py` chỉ chạy khi có index/cache tại máy đã thực nghiệm; không áp dụng cho bản clone chưa có Chroma. Không gỡ khóa rồi ghi đè thí nghiệm hiện tại để chạy lại; một thí nghiệm mới phải có thư mục kết quả và hồ sơ riêng.
+
+`requirements.lock.txt` lưu phiên bản môi trường đã cài. API key tiếp tục được đọc từ `.env` hoặc `starter/.env`; không đưa key vào Git/chat. `prepare_legal_corpus.py` chỉ dùng để tạo snapshot ban đầu và từ chối chạy lại sau khi benchmark được khóa, để tránh đổi corpus ngoài ý muốn. Xem [protocol](benchmark/protocol.json) về split, tiêu chí chọn dev và cách giữ test.
+
+Lệnh đã dùng cho Phase 3, từ thư mục gốc (snapshot đã duyệt hiện được bảo vệ; không rebuild/re-ingest để đổi thí nghiệm):
+
+```powershell
+.\.venv-legal\Scripts\python.exe scripts/build_legal_chunks.py
+.\.venv-legal\Scripts\python.exe -m src.ingest --config all --verify-reingest
+.\.venv-legal\Scripts\python.exe scripts/check_phase3_results.py
+.\.venv-legal\Scripts\python.exe scripts/prepare_chunk_review.py
+```
+
+Index bền vững nằm tại `results/chroma/`, collection `land_law_a`, `land_law_b`, `land_law_c`, cosine HNSW. Cache `results/embedding_cache.jsonl` chỉ chứa vector từ response API thật, không phải fallback; cache và index được Git ignore. Dev/test đã chạy theo thứ tự dưới đây; evaluator từ chối chạy lại để chọn điểm đẹp hơn hoặc thay cấu hình sau khi xem test:
+
+```powershell
+.\.venv-legal\Scripts\python.exe -m src.evaluate --split dev
+.\.venv-legal\Scripts\python.exe -m src.evaluate --split test
+.\.venv-legal\Scripts\python.exe scripts/prepare_retrieval_audits.py
+```
+
+Kiểm tra tính nhất quán của trace đã lưu mà không chạy lại retrieval:
+
+```powershell
+.\.venv-legal\Scripts\python.exe scripts/check_phase4_integrity.py
+.\.venv-legal\Scripts\python.exe scripts/summarize_manual_audits.py --check-only
+```
+
+Ba bảng `results/audit_coherence.csv`, `audit_metadata.csv`, `audit_grounding.csv` đã có điểm và lý do do AI chấm theo yêu cầu học viên; nguồn gốc được ghi trên từng dòng. Chạy `scripts/summarize_manual_audits.py` để kiểm tra và tổng hợp `results/audit_summary.json`; script không suy điểm từ Hit@3. Hướng dẫn xem xét nhãn ở [Gate 4](results/AUDIT_GUIDE.md). Bản báo cáo ở [report/individual/2A202603624_DamTuanLinh.md](report/individual/2A202603624_DamTuanLinh.md); [đối chiếu checklist nộp bài](results/SUBMISSION_REVIEW.md).
+
 **Lab cá nhân** · **4 giờ** · **Dữ liệu tự chọn**
 
 Biến tài liệu thành kho tri thức có thể truy xuất cho AI agent, rồi đo xem cách chuẩn bị dữ liệu nào hiệu quả nhất.
@@ -10,7 +62,7 @@ Biến tài liệu thành kho tri thức có thể truy xuất cho AI agent, r�
 
 ## Bắt đầu nhanh
 
-Dùng [starter PostgreSQL + pgvector](starter/README.md) để dựng database và hoàn thiện các hàm TODO, hoặc tự chọn vector store tương đương. Starter chỉ là khung: **bạn tự hiện thực pipeline và benchmark**.
+Dùng [starter PostgreSQL + pgvector](starter/README.md) để dựng database và chạy pipeline khung, hoặc tự chọn vector store tương đương. Bạn vẫn cần chuẩn bị corpus/manifest, tự viết và xác minh benchmark gold, rồi chạy thí nghiệm và audit thủ công.
 
 ## 1. Xây pipeline
 
@@ -44,4 +96,4 @@ Dùng cùng dữ liệu, model và câu hỏi cho cả ba cấu hình. Tách **1
 | Quy tắc sử dụng dữ liệu, AI và API | [RULES.md](RULES.md) |
 | Cách nộp bài | [SUBMISSION.md](SUBMISSION.md) |
 
-[data/format-example.json](data/format-example.json) chỉ minh họa định dạng, không phải corpus đủ điều kiện. Phần xử lý và benchmark do bạn tự hiện thực; không bắt buộc xây chatbot.
+[data/format-example.json](data/format-example.json) chỉ minh họa định dạng, không phải corpus đủ điều kiện. Câu hỏi benchmark, nhãn gold, thí nghiệm và audit phải do bạn chuẩn bị/kiểm chứng; không bắt buộc xây chatbot.

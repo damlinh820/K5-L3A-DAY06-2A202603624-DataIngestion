@@ -1,0 +1,33 @@
+{
+  "status": "complete",
+  "config": "C",
+  "model": "openai/text-embedding-3-small",
+  "dimensions": 1536,
+  "metric": "cosine",
+  "search": "Chroma HNSW approximate cosine; no custom index tuning",
+  "chroma_version": "1.5.9",
+  "at_utc": "2026-11-13T10:32:56.182088+00:00",
+  "benchmark_sha256": "fa49a88cd96ad388b778e1cc91f77ac928be0b05e211cdfa8f58fd85dd367f8c",
+  "chunk_file_sha256": "761c7126c47f6ad81ef3cb7ab034cc7a2c22dd84a42d358ed31b8d75a3d9114e",
+  "chunks": 1137,
+  "embedding": {
+    "requested_inputs": 1137,
+    "new_unique_inputs": 1002,
+    "all_inputs_cached": false,
+    "api_calls": 32,
+    "actual_api_tokens": 273781,
+    "actual_api_cost_usd": 0.00547562,
+    "seconds": 72.90036050003255
+  },
+  "first_write": {
+    "count": 1137,
+    "obsolete_removed": 0
+  },
+  "repeat_write": {
+    "count": 1137,
+    "obsolete_removed": 0
+  },
+  "store_seconds": 2.1100121999625117,
+  "repeat_store_seconds": 2.0885619000182487,
+  "wall_seconds_including_repeat": 77.14937269996153
+}

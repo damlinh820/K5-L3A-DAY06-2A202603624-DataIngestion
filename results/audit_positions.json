@@ -1,0 +1,72 @@
+[
+  {
+    "position_id": "position_01",
+    "article": 1,
+    "corpus_character_offset": 328,
+    "source_id": "luatdat1",
+    "page": 1
+  },
+  {
+    "position_id": "position_02",
+    "article": 30,
+    "corpus_character_offset": 44797,
+    "source_id": "luatdat1",
+    "page": 25
+  },
+  {
+    "position_id": "position_03",
+    "article": 59,
+    "corpus_character_offset": 97936,
+    "source_id": "luatdat1",
+    "page": 52
+  },
+  {
+    "position_id": "position_04",
+    "article": 88,
+    "corpus_character_offset": 167075,
+    "source_id": "luatdat1",
+    "page": 87
+  },
+  {
+    "position_id": "position_05",
+    "article": 117,
+    "corpus_character_offset": 223310,
+    "source_id": "luatdat2",
+    "page": 23
+  },
+  {
+    "position_id": "position_06",
+    "article": 146,
+    "corpus_character_offset": 310446,
+    "source_id": "luatdat2",
+    "page": 66
+  },
+  {
+    "position_id": "position_07",
+    "article": 175,
+    "corpus_character_offset": 371107,
+    "source_id": "luatdat3",
+    "page": 4
+  },
+  {
+    "position_id": "position_08",
+    "article": 204,
+    "corpus_character_offset": 416803,
+    "source_id": "luatdat3",
+    "page": 23
+  },
+  {
+    "position_id": "position_09",
+    "article": 233,
+    "corpus_character_offset": 465557,
+    "source_id": "luatdat3",
+    "page": 43
+  },
+  {
+    "position_id": "position_10",
+    "article": 260,
+    "corpus_character_offset": 514347,
+    "source_id": "luatdat3",
+    "page": 63
+  }
+]

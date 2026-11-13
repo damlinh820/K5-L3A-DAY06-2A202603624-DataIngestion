@@ -1,0 +1,37 @@
+{
+  "review_method": "ai_assisted",
+  "reviewer": "Codex conversational assistant",
+  "model_version": "Not exposed in this session; no guessed model identifier",
+  "recorded_at_utc": "2026-11-13T11:08:28.559830+00:00",
+  "authorization": "User message: vậy bạn chấm giúp mình",
+  "supersedes_plan_gate_4_actor": true,
+  "human_verified": false,
+  "independent_human_labels": false,
+  "blind_to_retrieval_scores": false,
+  "rubric": "GUIDE.md sections 4.2–4.4; 0/1/2 coherence and grounding, 0/1 metadata, query-level all-top3 filter",
+  "procedure": [
+    "Assistant read all 30 coherence chunks and 15 question/top-3 audit records, including shared chunks.",
+    "Fresh local text-layer extraction checked PDF source pages against the locked extraction; no visual or current-law review.",
+    "Metadata labels supported by source offsets, body/context page ranges and independently scanned legal headings.",
+    "Grounding considers premises, exceptions, question scope and all top-3; not inferred from Hit@3.",
+    "Partial grounding: relevant fragment/related rule without the requested premise or valid scope scores 1; unrelated results score 0.",
+    "No retrieval rerun, no changes to gold, benchmark, chunk snapshot, model or selected configuration."
+  ],
+  "limitations": [
+    "Same assistant implemented the pipeline and reviewed it; labels are not independent and were not blinded.",
+    "No student verification of these labels is claimed; human checking remains advisable under GUIDE.",
+    "Only the prescribed 30/45/15 audit rows; no claim about all 253 pages or current legal validity."
+  ],
+  "extra_embedding_or_generation_api_calls": 0,
+  "original_sheet_sha256": {
+    "audit_coherence.csv": "5fba1d44646c500390d3bb475d2ed372b31f9ed5a8f0ce4ad785b8b94bd1f48d",
+    "audit_metadata.csv": "c737f3e3a081baca4fc7ee6211476924df731cb3f0a4bb31ef5393faeac0e160",
+    "audit_grounding.csv": "e9dcbbe96544870da56508b9b149af611bcac2aa8a9289e9b9b30a3dcd9abd8b"
+  },
+  "labelled_sheet_sha256": {
+    "audit_coherence.csv": "41b7a6a13bcb782cb2e2182d255dca70470fb24f1545a6d6c9af246b45e46d26",
+    "audit_metadata.csv": "12bad893a3a25af737d38b37b2b167622314ac41684236bc1184fdf33c074b5f",
+    "audit_grounding.csv": "50a69b78996d2360b4c74ac7234874c21b623cc56b152d5f7580ed0d9d638146"
+  },
+  "rubric_sha256": "702c1f0f42c4924e7f9ca17bc56672a62aa0d0c6350e14c38909c181bd571662"
+}

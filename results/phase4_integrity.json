@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "unique_query_variant_checks": 63,
+  "hit_records_checked_including_filter_baselines": 198,
+  "selection_frozen_before_test": true,
+  "frozen_evaluation_code_unchanged": true,
+  "selected_config": "C",
+  "retrieval_queries_rerun": false,
+  "embedding_ledger_tokens_ingest_and_queries": 837301,
+  "embedding_ledger_cost_usd_ingest_and_queries": 0.01674602,
+  "note": "Saved trace/metric consistency only; no manual audit labels are inferred."
+}

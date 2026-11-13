@@ -1,0 +1,135 @@
+{
+  "status": "passed",
+  "questions": 20,
+  "splits": {
+    "dev": 15,
+    "test": 5
+  },
+  "filter_questions": 3,
+  "test_filter_questions": 1,
+  "benchmark_sha256": "fa49a88cd96ad388b778e1cc91f77ac928be0b05e211cdfa8f58fd85dd367f8c",
+  "errors": [],
+  "checks": [
+    {
+      "id": "q01",
+      "source_id": "luatdat1",
+      "page": 1,
+      "quote_found": true
+    },
+    {
+      "id": "q02",
+      "source_id": "luatdat1",
+      "page": 1,
+      "quote_found": true
+    },
+    {
+      "id": "q03",
+      "source_id": "luatdat1",
+      "page": 2,
+      "quote_found": true
+    },
+    {
+      "id": "q04",
+      "source_id": "luatdat1",
+      "page": 10,
+      "quote_found": true
+    },
+    {
+      "id": "q05",
+      "source_id": "luatdat1",
+      "page": 11,
+      "quote_found": true
+    },
+    {
+      "id": "q06",
+      "source_id": "luatdat1",
+      "page": 21,
+      "quote_found": true
+    },
+    {
+      "id": "q07",
+      "source_id": "luatdat1",
+      "page": 25,
+      "quote_found": true
+    },
+    {
+      "id": "q08",
+      "source_id": "luatdat1",
+      "page": 40,
+      "quote_found": true
+    },
+    {
+      "id": "q09",
+      "source_id": "luatdat1",
+      "page": 53,
+      "quote_found": true
+    },
+    {
+      "id": "q10",
+      "source_id": "luatdat1",
+      "page": 25,
+      "quote_found": true
+    },
+    {
+      "id": "q11",
+      "source_id": "luatdat2",
+      "page": 1,
+      "quote_found": true
+    },
+    {
+      "id": "q12",
+      "source_id": "luatdat2",
+      "page": 2,
+      "quote_found": true
+    },
+    {
+      "id": "q13",
+      "source_id": "luatdat2",
+      "page": 5,
+      "quote_found": true
+    },
+    {
+      "id": "q14",
+      "source_id": "luatdat2",
+      "page": 25,
+      "quote_found": true
+    },
+    {
+      "id": "q15",
+      "source_id": "luatdat2",
+      "page": 43,
+      "quote_found": true
+    },
+    {
+      "id": "q16",
+      "source_id": "luatdat3",
+      "page": 1,
+      "quote_found": true
+    },
+    {
+      "id": "q17",
+      "source_id": "luatdat3",
+      "page": 2,
+      "quote_found": true
+    },
+    {
+      "id": "q18",
+      "source_id": "luatdat3",
+      "page": 3,
+      "quote_found": true
+    },
+    {
+      "id": "q19",
+      "source_id": "luatdat3",
+      "page": 34,
+      "quote_found": true
+    },
+    {
+      "id": "q20",
+      "source_id": "luatdat3",
+      "page": 46,
+      "quote_found": true
+    }
+  ],
+  "limitation": "Exact evidence/provenance validation only. Expected-answer adequacy and legal conditions require student review at Gate 2."
+}
